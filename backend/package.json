@@ -1,0 +1,24 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Backend codes for Versiona - Version Control System",
+  "homepage": "https://github.com/anish-9387/Versiona#readme",
+  "bugs": {
+    "url": "https://github.com/anish-9387/Versiona/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anish-9387/Versiona.git"
+  },
+  "license": "ISC",
+  "author": "Anish Mall",
+  "type": "commonjs",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "yargs": "^18.0.0"
+  }
+}
