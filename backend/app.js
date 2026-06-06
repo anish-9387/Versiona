@@ -26,7 +26,10 @@ yargs(hideBin(process.argv))
       describe: "Commit message",
       type: "string"
     });
-  }, commit)
+  },
+  (argv) => {
+    commit(argv.message);
+  })
 
   .command("push", "Push changes to the remote repository (AWS S3)", {}, push)
 
