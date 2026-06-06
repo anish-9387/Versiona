@@ -9,6 +9,8 @@ const bodyParser = require("body-parser");
 const http = require("http");
 const { Server } = require("socket.io");
 
+const indexRouter = require("./routes/index.router.js");
+
 const { initRepo } = require("./controllers/init.controller.js");
 const { add } = require("./controllers/add.controller.js");
 const { commit } = require("./controllers/commit.controller.js");
@@ -77,9 +79,7 @@ function startServer() {
 
   app.use(cors({ origin: "*" }));
 
-  app.get("/", (req, res) => {
-    res.send("Hello World!");
-  });
+  app.use("/", indexRouter);
 
   let user = "test";
   const httpServer = http.createServer(app);
