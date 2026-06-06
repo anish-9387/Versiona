@@ -1,5 +1,6 @@
 const fs = require("fs").promises;
 const path = require("path");
+const { PutObjectCommand } = require("@aws-sdk/client-s3");
 const { s3, S3_BUCKET } = require("../config/aws-config.js");
 
 async function push() {
@@ -18,13 +19,11 @@ async function push() {
         const fileContent = await fs.readFile(filePath);
         const s3Key = `commits/${commitID}/${file}`;
 
-        const params = {
+        await s3.send(new PutObjectCommand({
           Bucket: S3_BUCKET,
           Key: s3Key,
           Body: fileContent
-        };
-
-        await s3.upload(params).promise();
+        }));
       }
     }
 
