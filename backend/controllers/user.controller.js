@@ -1,11 +1,10 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const User = require('../models/user.model.js');
-const ObjectId = require('mongoose').Types.ObjectId;
 
 const getAllUsers = async (req, res) => {
   try {
-    const users = await User.find({}).toArray();
+    const users = await User.find({});
     res.json(users);
   } catch (error) {
     console.error('Error fetching users:', error);
