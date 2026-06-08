@@ -1,29 +1,29 @@
-import { useEffect } from 'react';
-import { useNavigate, useRoutes } from 'react-router-dom';
+import { useEffect } from "react";
+import { useNavigate, useRoutes } from 'react-router-dom'
 
-import Dashboard from '../components/dashboard/Dashboard.jsx';
-import Profile from '../components/user/Profile.jsx';
-import Login from '../components/auth/Login.jsx';
-import Signup from '../components/auth/Signup.jsx';
+import Dashboard from "../components/dashboard/Dashboard";
+import Profile from "../components/user/Profile";
+import Login from "../components/auth/Login";
+import Signup from "../components/auth/Signup";
 
-import { useAuth } from '../context/AuthContext.jsx';
+import { useAuth } from "../context/AuthContext";
 
-const Routes = () => {
+const ProjectRoutes = () => {
   const { currentUser, setCurrentUser } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
-    const userIdFromStorage = localStorage.getItem('userId');
+    const userIdFromStorage = localStorage.getItem("userId");
 
     if (userIdFromStorage && !currentUser) {
-      setCurrentUser({ id: userIdFromStorage });
+      setCurrentUser(userIdFromStorage);
     }
 
     if (!userIdFromStorage && !["/login", "/signup"].includes(window.location.pathname)) {
-      navigate('/login');
+      navigate("/login");
     }
 
-    if(userIdFromStorage && window.location.pathname === '/login') {
+    if (userIdFromStorage && window.location.pathname == '/login') {
       navigate("/");
     }
   }, [currentUser, navigate, setCurrentUser]);
@@ -34,20 +34,20 @@ const Routes = () => {
       element: <Dashboard />
     },
     {
-      path: "/profile",
-      element: <Profile />
-    },
-    {
       path: "/login",
       element: <Login />
     },
     {
       path: "/signup",
       element: <Signup />
+    },
+    {
+      path: "/profile",
+      element: <Profile />
     }
   ]);
 
   return element;
 }
 
-export default Routes;
+export default ProjectRoutes;

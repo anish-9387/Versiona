@@ -1,11 +1,7 @@
-import './App.css';
+import Routes from './utils/Routes.jsx';
 
 function App() {
-  return (
-    <>
-      <h1>Versiona frontend</h1>
-    </>
-  );
+  return <Routes />;
 }
 
 export default App;
