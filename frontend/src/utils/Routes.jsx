@@ -6,6 +6,7 @@ import Login from "../components/auth/Login";
 import Signup from "../components/auth/Signup";
 import Profile from "../components/user/Profile";
 import UserSettings from "../components/user/UserSettings";
+import SearchResults from "../components/search/SearchResults";
 import RepoPage from "../components/repo/RepoPage";
 import NewRepo from "../components/repo/NewRepo";
 import RepoSettings from "../components/repo/RepoSettings";
@@ -36,6 +37,10 @@ const ProjectRoutes = () => {
     {
       path: "/settings",
       element: user ? <UserSettings /> : <Navigate to="/login" replace />,
+    },
+    {
+      path: "/search",
+      element: user ? <SearchResults /> : <Navigate to="/login" replace />,
     },
     {
       path: "/:username",
