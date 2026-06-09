@@ -14,7 +14,9 @@ const repositorySchema = new Schema({
     type: String
   }],
   visibility: {
-    type: Boolean,
+    type: String,
+    enum: ['private', 'public'],
+    default: 'private'
   },
   owner: {
     type: Schema.Types.ObjectId,

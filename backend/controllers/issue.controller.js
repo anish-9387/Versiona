@@ -10,7 +10,7 @@ const createIssue = async (req, res) => {
       title,
       description,
       status: 'open',
-      repository: mongoose.Types.ObjectId(repoID),
+      repository: new mongoose.Types.ObjectId(repoID),
     });
 
     await issue.save();
@@ -63,7 +63,7 @@ const getAllIssues = async (req, res) => {
   const repoID = req.params.repoID;
 
   try {
-    const issues = await Issue.find({ repository: mongoose.Types.ObjectId(repoID) });
+    const issues = await Issue.find({ repository: new mongoose.Types.ObjectId(repoID) });
 
     res.status(200).json({ issues });
   } catch (error) {

@@ -21,7 +21,7 @@ const createRepository = async (req, res) => {
       issues: issues || [],
       content: content || '',
       description: description || '',
-      visibility: visibility || 'public',
+      visibility: visibility ?? 'private',
     });
 
     const savedRepository = await newRepository.save();
@@ -174,7 +174,7 @@ const toggleVisibilityById = async (req, res) => {
       return res.status(404).json({ message: 'Repository not found' });
     }
 
-    repository.visibility = !repository.visibility;
+    repository.visibility = repository.visibility === 'private' ? 'public' : 'private';
     await repository.save();
 
     res.status(200).json({ message: 'Repository visibility toggled successfully' });

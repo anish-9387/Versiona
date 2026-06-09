@@ -1,1 +1,51 @@
 @import "tailwindcss";
+
+@theme {
+  --color-github-canvas: #0d1117;
+  --color-github-canvas-subtle: #161b22;
+  --color-github-canvas-inset: #010409;
+  --color-github-bg-tertiary: #21262d;
+  --color-github-border-default: #30363d;
+  --color-github-border-muted: #21262d;
+  --color-github-fg-default: #e6edf3;
+  --color-github-fg-muted: #8b949e;
+  --color-github-fg-subtle: #6e7681;
+  --color-github-accent-fg: #58a6ff;
+  --color-github-accent-emphasis: #1f6feb;
+  --color-github-accent-muted: rgba(56,139,253,0.15);
+  --color-github-success-fg: #3fb950;
+  --color-github-success-emphasis: #238636;
+  --color-github-attention-fg: #d29922;
+  --color-github-danger-fg: #f85149;
+  --color-github-danger-emphasis: #da3633;
+  --color-github-btn-primary: #238636;
+  --color-github-btn-primary-hover: #2ea043;
+  --color-github-btn-primary-border: #2ea043;
+  --color-github-btn-primary-shadow: rgba(0,0,0,0.3);
+  --color-github-btn-primary-inset-shadow: rgba(255,255,255,0.03);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #30363d;
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #6e7681;
+}
