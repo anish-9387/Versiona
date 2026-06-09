@@ -1,2 +1,4 @@
 allowBuilds:
   aws-sdk: true
+  esbuild: true
+onlyBuiltDependencies: esbuild

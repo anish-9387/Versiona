@@ -1,0 +1,126 @@
+import { useState } from "react";
+import type { FormEvent } from "react";
+import { Link, useNavigate, Navigate } from "react-router-dom";
+import api from "../../api/axios";
+import { useAuth } from "../../context/useAuth";
+import type { AxiosError } from "axios";
+
+interface LoginResponse {
+  token: string;
+  userId: string;
+}
+
+const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const { login, user } = useAuth();
+  const navigate = useNavigate();
+
+  if (user) return <Navigate to="/" replace />;
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    setError("");
+    if (!email || !password) {
+      setError("Email and password are required.");
+      return;
+    }
+    try {
+      setLoading(true);
+      const { data } = await api.post<LoginResponse>("/user/login", { email, password });
+      login(data.token, data.userId);
+      navigate("/", { replace: true });
+    } catch (err) {
+      const axiosErr = err as AxiosError<{ message?: string }>;
+      setError(axiosErr.response?.data?.message || "Incorrect email or password.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-github-canvas flex flex-col items-center justify-center px-4 py-8">
+      <Link to="/" className="mb-6">
+        <img src="/logo.png" alt="Versiona" className="h-12 w-12 rounded-full" />
+      </Link>
+
+      <div className="w-full max-w-77">
+        <div className="bg-github-canvas-subtle border border-github-border-default rounded-md p-4">
+          <h1 className="text-github-fg-default text-2xl text-center mb-4 font-light">Sign in to Versiona</h1>
+
+          {error && (
+            <div className="mb-3 p-2.5 text-sm text-github-danger-fg bg-[rgba(248,81,73,0.1)] border border-[rgba(248,81,73,0.4)] rounded-md">
+              {error}
+            </div>
+          )}
+
+          <form onSubmit={handleSubmit} className="space-y-3">
+            <div>
+              <label htmlFor="login" className="block text-github-fg-default text-sm font-medium mb-1">
+                Email address
+              </label>
+              <input
+                id="login"
+                autoComplete="username"
+                className="w-full px-3 py-2 bg-github-canvas border border-github-border-default rounded-md text-github-fg-default text-sm focus:outline-none focus:border-github-accent-fg focus:ring-1 focus:ring-github-accent-fg placeholder-github-fg-subtle"
+                type="text"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Enter your email"
+              />
+            </div>
+            <div>
+              <div className="flex items-center justify-between mb-1">
+                <label htmlFor="password" className="block text-github-fg-default text-sm font-medium">
+                  Password
+                </label>
+                <Link to="#" className="text-xs text-github-accent-fg no-underline hover:underline">
+                  Forgot password?
+                </Link>
+              </div>
+              <input
+                id="password"
+                autoComplete="current-password"
+                className="w-full px-3 py-2 bg-github-canvas border border-github-border-default rounded-md text-github-fg-default text-sm focus:outline-none focus:border-github-accent-fg focus:ring-1 focus:ring-github-accent-fg placeholder-github-fg-subtle"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Enter your password"
+              />
+            </div>
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full py-2 px-4 bg-github-btn-primary hover:bg-github-btn-primary-hover text-white text-sm font-semibold rounded-md border border-github-btn-primary-border cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            >
+              {loading ? "Signing in..." : "Sign in"}
+            </button>
+          </form>
+        </div>
+
+        <div className="mt-4 border border-github-border-default rounded-md p-4 text-center">
+          <p className="text-github-fg-muted text-sm">
+            New to Versiona?{" "}
+            <Link to="/signup" className="text-github-accent-fg no-underline hover:underline">
+              Create an account
+            </Link>
+          </p>
+        </div>
+
+        <p className="mt-8 text-center text-xs text-github-fg-muted">
+          <Link to="#" className="hover:text-github-accent-fg no-underline">Terms</Link>
+          {" "}&middot;{" "}
+          <Link to="#" className="hover:text-github-accent-fg no-underline">Privacy</Link>
+          {" "}&middot;{" "}
+          <Link to="#" className="hover:text-github-accent-fg no-underline">Security</Link>
+          {" "}&middot;{" "}
+          <Link to="https://github.com/anish-9387/Versiona" className="hover:text-github-accent-fg no-underline">Contact Versiona</Link>
+        </p>
+      </div>
+    </div>
+  );
+};
+
+export default Login;

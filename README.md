@@ -12,7 +12,7 @@ versiona/
 │   ├── routes/       # Express route definitions
 │   ├── config/       # AWS S3 client configuration
 │   ├── middlewares/   # Auth & authorization placeholders
-│   └── app.js        # Entry point (CLI + HTTP server)
+│   └── app.ts        # Entry point (CLI + HTTP server)
 ├── frontend/         # Vite + React 19 + Tailwind CSS v4
 │   └── src/
 │       ├── api/          # Axios instance with JWT interceptors
@@ -75,12 +75,12 @@ versiona/
 
 | Command | Description |
 |---------|-------------|
-| `node app.js init` | Initialize `.versiona` repository |
-| `node app.js add <file>` | Add file to staging area |
-| `node app.js commit <message>` | Create a commit from staged files |
-| `node app.js push` | Upload commits to AWS S3 |
-| `node app.js pull` | Download commits from AWS S3 |
-| `node app.js revert <commitID>` | Restore files from a specific commit |
+| `pnpm run start init` | Initialize `.versiona` repository |
+| `pnpm run start add <file>` | Add file to staging area |
+| `pnpm run start commit <message>` | Create a commit from staged files |
+| `pnpm run start push` | Upload commits to AWS S3 |
+| `pnpm run start pull` | Download commits from AWS S3 |
+| `pnpm run start revert <commitID>` | Restore files from a specific commit |
 
 ## Getting Started
 
@@ -125,7 +125,7 @@ AWS_SECRET_ACCESS_KEY=your_aws_secret
 ```bash
 # Start backend (terminal 1)
 cd backend
-node app.js start
+pnpm run start start
 
 # Start frontend (terminal 2)
 cd frontend
@@ -140,22 +140,22 @@ The frontend runs on `http://localhost:5173` and proxies `/user`, `/repository`,
 cd backend
 
 # Initialize a .versiona repository
-node app.js init
+pnpm run start init
 
 # Add a file to staging
-node app.js add hello.txt
+pnpm run start add hello.txt
 
 # Commit staged files
-node app.js commit "Initial commit"
+pnpm run start commit "Initial commit"
 
 # Push commits to AWS S3
-node app.js push
+pnpm run start push
 
 # Pull commits from AWS S3
-node app.js pull
+pnpm run start pull
 
 # Revert to a specific commit
-node app.js revert <commit-uuid>
+pnpm run start revert <commit-uuid>
 ```
 
 ## Project Structure
@@ -164,34 +164,34 @@ node app.js revert <commit-uuid>
 versiona/
 ├── backend/
 │   ├── controllers/
-│   │   ├── user.controller.js      # Auth & profile CRUD
-│   │   ├── repository.controller.js # Repository CRUD & visibility
-│   │   ├── issue.controller.js      # Issue CRUD
-│   │   ├── init.controller.js       # .versiona directory init
-│   │   ├── add.controller.js        # Stage files
-│   │   ├── commit.controller.js     # Create commits with UUID
-│   │   ├── push.controller.js       # Upload to S3
-│   │   ├── pull.controller.js       # Download from S3
-│   │   └── revert.controller.js     # Restore commit files
+│   │   ├── user.controller.ts      # Auth & profile CRUD
+│   │   ├── repository.controller.ts # Repository CRUD & visibility
+│   │   ├── issue.controller.ts      # Issue CRUD
+│   │   ├── init.controller.ts       # .versiona directory init
+│   │   ├── add.controller.ts        # Stage files
+│   │   ├── commit.controller.ts     # Create commits with UUID
+│   │   ├── push.controller.ts       # Upload to S3
+│   │   ├── pull.controller.ts       # Download from S3
+│   │   └── revert.controller.ts     # Restore commit files
 │   ├── models/
-│   │   ├── user.model.js
-│   │   ├── repository.model.js
-│   │   └── issue.model.js
+│   │   ├── user.model.ts
+│   │   ├── repository.model.ts
+│   │   └── issue.model.ts
 │   ├── routes/
-│   │   ├── index.router.js          # Mounts sub-routers
-│   │   ├── user.router.js
-│   │   ├── repository.router.js
-│   │   └── issue.router.js
+│   │   ├── index.router.ts          # Mounts sub-routers
+│   │   ├── user.router.ts
+│   │   ├── repository.router.ts
+│   │   └── issue.router.ts
 │   ├── config/
-│   │   └── aws-config.js            # S3 client
+│   │   └── aws-config.ts            # S3 client
 │   ├── middlewares/
-│   │   ├── auth.middleware.js       # Placeholder
-│   │   └── authorise.middleware.js  # Placeholder
-│   └── app.js                       # Entry: CLI + Express + Socket.IO
+│   │   ├── auth.middleware.ts       # Placeholder
+│   │   └── authorise.middleware.ts  # Placeholder
+│   └── app.ts                       # Entry: CLI + Express + Socket.IO
 ├── frontend/
 │   └── src/
 │       ├── api/
-│       │   └── axios.js             # Axios instance + JWT interceptors
+│       │   └── axios.ts             # Axios instance + JWT interceptors
 │       ├── components/
 │       │   ├── auth/                # Login, Signup
 │       │   ├── home/                # Dashboard
@@ -202,13 +202,13 @@ versiona/
 │       │   ├── user/                # Profile, UserSettings, HeatMap
 │       │   └── common/              # PrivateRoute
 │       ├── context/
-│       │   ├── authContext.js       # React context
-│       │   ├── AuthProvider.jsx     # Auth state & login/logout
-│       │   └── useAuth.js          # Auth hook
+│       │   ├── authContext.ts       # React context
+│       │   ├── AuthProvider.tsx     # Auth state & login/logout
+│       │   └── useAuth.ts          # Auth hook
 │       ├── utils/
-│       │   └── Routes.jsx           # All route definitions
+│       │   └── Routes.tsx           # All route definitions
 │       ├── index.css                # Tailwind + GitHub theme
-│       ├── main.jsx
-│       └── App.jsx
+│       ├── main.tsx
+│       └── App.tsx
 └── README.md
 ```
