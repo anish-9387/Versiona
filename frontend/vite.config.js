@@ -6,9 +6,9 @@ export default defineConfig({
   plugins: [react(), tailwindcss()],
   server: {
     proxy: {
-      '/user': { target: 'http://16.171.27.203:3000', changeOrigin: true },
-      '/repository': { target: 'http://16.171.27.203:3000', changeOrigin: true },
-      '/issue': { target: 'http://16.171.27.203:3000', changeOrigin: true },
+      '/user': 'http://localhost:3000',
+      '/repository': 'http://localhost:3000',
+      '/issue': 'http://localhost:3000',
     }
   }
 })
